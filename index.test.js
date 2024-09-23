@@ -1,6 +1,6 @@
 const { execSync } = require('child_process');
 const request = require('supertest');
-const db = require('./db/connection'); // Use db variable from connection.js
+const { db } = require('./db/connection'); // Use db variable from connection.js
 const { Musician } = require('./models/index'); // Assuming Musician is part of index.js
 const app = require('./src/app'); // Express app
 const { seedMusician } = require('./seedData'); // Your seed data
