@@ -1,21 +1,24 @@
 const { execSync } = require('child_process');
-const request = require('supertest');
-const { db } = require('./db/connection'); // Use db variable from connection.js
-const { Musician } = require('./models/index'); // Assuming Musician is part of index.js
-const app = require('./src/app'); // Express app
-const { seedMusician } = require('./seedData'); // Your seed data
+execSync('npm install');
+execSync('npm run seed');
+
+const request = require("supertest")
+const { db } = require('./db/connection');
+const { Musician } = require('./models/index')
+const app = require('./src/app');
+const { seedMusician } = require("./seedData");
 
 describe('/musicians endpoint', () => {
-  // Before all tests, ensure the database is seeded with data
-  beforeAll(async () => {
-    await db.sync({ force: true }); // Reset the database
-    await seedMusician(); // Seed the musicians data
-  });
+  // // Before all tests, ensure the database is seeded with data
+  // beforeAll(async () => {
+  //   await db.sync({ force: true }); // Reset the database
+  //   await seedMusician(); // Seed the musicians data
+  // });
 
-  // After all tests, close the database connection
-  afterAll(async () => {
-    await db.close();
-  });
+  // // After all tests, close the database connection
+  // afterAll(async () => {
+  //   await db.close();
+  // });
 
   // Test if GET /musicians returns a 200 status code
   test('It should respond with a 200 status code', async () => {

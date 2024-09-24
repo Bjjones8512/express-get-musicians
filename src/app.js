@@ -16,10 +16,4 @@ app.get('/musicians', async (req, res) => {
   }
 });
 
-
-
-
-
-
-
 module.exports = app;
