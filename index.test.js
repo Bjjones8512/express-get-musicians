@@ -65,3 +65,30 @@ describe('GET /musicians/:id', () => {
     expect(response.body).toHaveProperty('error', 'Musician not found');
   });
 });
+
+describe('POST /musicians', () => {
+  it('should create a new musician', async () => {
+    const response = await request(app)
+      .post('/musicians')
+      .send({ name: 'New Musician', instrument: 'Guitar' });
+    expect(response.statusCode).toBe(201);
+    expect(response.body).toHaveProperty('name', 'New Musician');
+  });
+});
+
+describe('PUT /musicians/:id', () => {
+  it('should update an existing musician', async () => {
+    const response = await request(app)
+      .put('/musicians/1')
+      .send({ name: 'Updated Musician', instrument: 'Piano' });
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toHaveProperty('name', 'Updated Musician');
+  });
+});
+
+describe('DELETE /musicians/:id', () => {
+  it('should delete a musician', async () => {
+    const response = await request(app).delete('/musicians/1');
+    expect(response.statusCode).toBe(204);
+  });
+  });
