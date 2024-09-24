@@ -16,4 +16,19 @@ app.get('/musicians', async (req, res) => {
   }
 });
 
+// GET /musicians/:id
+app.get('/musicians/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const musician = await Musician.findByPk(id);
+    if (musician) {
+      res.json(musician);
+    } else {
+      res.status(404).json({ error: 'Musician not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 module.exports = app;
