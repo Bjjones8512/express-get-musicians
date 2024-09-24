@@ -31,4 +31,45 @@ app.get('/musicians/:id', async (req, res) => {
   }
 });
 
+app.post('/musicians', async (req, res) => {
+  try {
+    const musician = await Musician.create(req.body);
+    res.status(201).json(musician);
+  } catch (error) {
+    res.status(400).json({ error: 'Failed to create musician' });
+  }
+});
+
+app.put('/musicians/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const musician = await Musician.findByPk(id);
+    if (musician) {
+      await musician.update(req.body);
+      res.json(musician);
+    } else {
+      res.status(404).json({ error: 'Musician not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update musician' });
+  }
+});
+
+app.delete('/musicians/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const musician = await Musician.findByPk(id);
+    if (musician) {
+      await musician.destroy();
+      res.status(204).send(); // No content after deletion
+    } else {
+      res.status(404).json({ error: 'Musician not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to delete musician' });
+  }
+});
+
+
+
 module.exports = app;
