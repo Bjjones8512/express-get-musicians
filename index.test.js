@@ -51,3 +51,17 @@ describe('/musicians endpoint', () => {
     });
   });
 });
+
+describe('GET /musicians/:id', () => {
+  it('should return a musician with a valid ID', async () => {
+    const response = await request(app).get('/musicians/1');
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toHaveProperty('id', 1); // Assuming musician ID is 1
+  });
+
+  it('should return 404 if musician is not found', async () => {
+    const response = await request(app).get('/musicians/999');
+    expect(response.statusCode).toBe(404);
+    expect(response.body).toHaveProperty('error', 'Musician not found');
+  });
+});
